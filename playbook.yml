@@ -2,3 +2,8 @@
 # Home server/NAS
 - hosts: all
   become: yes
+
+  pre_tasks:
+    - name: Remove snap functionality
+      import_tasks: tasks/yeet_snaps.yml
+      tags: nosnaps

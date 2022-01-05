@@ -1,0 +1,38 @@
+---
+# probably not necessary on 21.10
+- name: Unmount the core* snaps
+  mount:
+    name: "/snap/core*"
+    state: unmounted
+
+- name: Remove the pre-installed snaps
+  snap:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - lxd
+    - core20
+    - snapd
+  ignore_errors: yes
+
+- name: Remove the snap package from apt
+  apt:
+    package: snapd
+    state: absent
+    purge: yes
+
+- name: Remove the snap folders
+  file:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - /home/{{ username }}/snap
+    - /var/snap
+    - /var/lib/snap
+
+# TODO: apt module has no hold option,
+# and this one doesn't work when a package isn't installed.
+# - name: Make sure snap will not be reinstalled somehow
+#   dpkg_selections:
+#     name: snapd
+#     selection: hold
