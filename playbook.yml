@@ -1,0 +1,4 @@
+---
+# Home server/NAS
+- hosts: all
+  become: yes
