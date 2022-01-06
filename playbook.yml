@@ -7,3 +7,10 @@
     - name: Remove snap functionality
       import_tasks: tasks/yeet_snaps.yml
       tags: nosnaps
+
+  roles:
+    - role: system/mergerfs
+
+    - role: system/filesystems
+
+    - role: system/mounts
