@@ -9,8 +9,25 @@
       tags: nosnaps
 
   roles:
+    ######--- SYSTEM ---######
     - role: system/mergerfs
 
     - role: system/filesystems
 
     - role: system/mounts
+    ######--- /SYSTEM ---######
+
+
+    ######--- CONTAINERS ---######
+    - role: docker
+
+    - role: NPM
+      tags:
+        - nextcloud
+        - containers
+
+    - role: applications/nextcloud
+      tags:
+        - nextcloud
+        - containers
+    ######--- /CONTAINERS ---######
