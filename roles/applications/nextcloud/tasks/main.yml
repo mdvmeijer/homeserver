@@ -1,0 +1,11 @@
+---
+- name: Copy Nextcloud docker-compose file
+  copy:
+    src: ../files/docker-compose.yml
+    dest: /home/{{ username }}/docker-compose.yml
+
+- name: Deploy Nextcloud docker-compose stack
+  docker_compose:
+    project_src: /home/{{ username }}
+    files:
+    - docker-compose.yml

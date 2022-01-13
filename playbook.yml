@@ -1,0 +1,33 @@
+---
+# Home server/NAS
+- hosts: all
+  become: yes
+
+  pre_tasks:
+    - name: Remove snap functionality
+      import_tasks: tasks/yeet_snaps.yml
+      tags: nosnaps
+
+  roles:
+    ######--- SYSTEM ---######
+    - role: system/mergerfs
+
+    - role: system/filesystems
+
+    - role: system/mounts
+    ######--- /SYSTEM ---######
+
+
+    ######--- CONTAINERS ---######
+    - role: docker
+
+    - role: NPM
+      tags:
+        - nextcloud
+        - containers
+
+    - role: applications/nextcloud
+      tags:
+        - nextcloud
+        - containers
+    ######--- /CONTAINERS ---######

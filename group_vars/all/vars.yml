@@ -1,0 +1,7 @@
+username: vagrant
+
+mergerfs_root: /mnt/storage
+
+disks:
+  - { path: /mnt/data1, src: /dev/disk/by-label/data1, content: true }
+  - { path: /mnt/data2, src: /dev/disk/by-label/data2, content: true }
