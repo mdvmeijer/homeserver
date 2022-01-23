@@ -98,11 +98,11 @@
   #   delegate_to: "{{ inventory_hostname }}"
   #   when: persistent_data_find.matched < 20 or not persistent_data.stat.exists
 
-  - name: Chmod the data folder
-    become: yes
-    file:
-      dest: "{{ docker_dir }}"
-      state: directory
-      owner: "{{ username }}"
-      group: "{{ username }}"
-      recurse: yes
+  # - name: Chmod the data folder
+  #   become: yes
+  #   file:
+  #     dest: "{{ docker_dir }}"
+  #     state: directory
+  #     owner: "{{ username }}"
+  #     group: "{{ username }}"
+  #     recurse: yes
