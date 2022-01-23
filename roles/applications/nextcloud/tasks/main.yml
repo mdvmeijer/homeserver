@@ -36,7 +36,7 @@
     pull: yes
     networks:
       - name: nextcloud-net
-      - name: vagrant_npm-net
+      - name: npm-net
     state: 'started'
     env:
       MYSQL_PASSWORD: mytaciSm-interfeNestration-Inaniloquent
