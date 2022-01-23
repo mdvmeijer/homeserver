@@ -13,5 +13,6 @@
     name: tailscale
     state: latest
 
+# NOTE: Tailscale setup is not fully automated because authentication has to be done via the browser
 # - name: Make sure tailscale is up
 #   command: sudo tailscale up
