@@ -4,7 +4,7 @@ username: vagrant
 
 mergerfs_root: /mnt/storage
 
-docker_dir: ~/docker/data
+docker_dir: /home/{{ username }}/docker/data
 
 disks:
   - { path: /mnt/data1, src: /dev/disk/by-label/data1, content: true }
