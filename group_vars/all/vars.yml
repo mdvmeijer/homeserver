@@ -7,5 +7,5 @@ mergerfs_root: /mnt/storage
 docker_dir: /home/{{ username }}/docker/data
 
 disks:
-  - { path: /mnt/data1, src: /dev/disk/by-label/data1, content: true }
-  - { path: /mnt/data2, src: /dev/disk/by-label/data2, content: true }
+  - { dev: /dev/sda, label: data1, path: /mnt/data1, src: /dev/disk/by-label/data1, content: true }
+  - { dev: /dev/sdb, label: data2, path: /mnt/data2, src: /dev/disk/by-label/data2, content: true }
