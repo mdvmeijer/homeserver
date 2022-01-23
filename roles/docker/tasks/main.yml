@@ -61,40 +61,48 @@
 #   when: not lookup('vars', 'enable_' + item.path.split('/')[-1])
 #   with_items: "{{ containers.files }}"
 #
-# - name: Handle persistent data
-#   when: "'fragile' in inventory_hostname"
-#   block:
-#   - name: Check if the persistent data folder exists on the remote machine
-#     stat:
-#       path: "{{ docker_dir }}"
-#     register: persistent_data
-#
-#   - name: Check if the persistent data folder is empty
-#     when: "'fragile' in inventory_hostname"
-#     find:
-#       paths:
-#         - "{{ docker_dir }}/"
-#       recurse: yes
-#     register: persistent_data_find
-#
-#   - name: Create the persistent data folder on the remote machine
-#     file:
-#       dest: "{{ docker_dir }}"
-#       state: directory
-#       owner: "{{ username }}"
-#       group: "{{ username }}"
-#       recurse: yes
-#     when: persistent_data.stat.exists == false
-#
-#   - name: Restore the "{{ docker_dir }}" folder from the MergerFS array
-#     shell:
-#       cmd: "rsync -avz --delete {{ mergerfs_root }}/docker_data/data/ {{ docker_dir }}/"
-#     when: persistent_data_find.matched < 20 or persistent_data.stat.exists == false
-#
-#   - name: Chmod the data folder
-#     file:
-#       dest: "{{ docker_dir }}"
-#       state: directory
-#       owner: "{{ username }}"
-#       group: "{{ username }}"
-#       recurse: yes
+- name: Handle persistent data
+  become: no
+  # when: "enable_nas_stuff | default(False)"
+  block:
+  - name: Check if the persistent data folder exists on the remote machine
+    stat:
+      path: "{{ docker_dir }}"
+    register: persistent_data
+    # when: "enable_nas_stuff | default(False)"
+
+  - name: Check if the persistent data folder is empty
+    find:
+      paths:
+        - "{{ docker_dir }}/"
+      recurse: yes
+    register: persistent_data_find
+    # when: "enable_nas_stuff | default(False)"
+
+  - name: Create the persistent data folder on the remote machine
+    file:
+      dest: "{{ docker_dir }}"
+      state: directory
+      owner: "{{ username }}"
+      group: "{{ username }}"
+      mode: 0755
+      recurse: yes
+    when: not persistent_data.stat.exists
+
+  # - name: Restore the "{{ docker_dir }}" folder from the MergerFS array
+  #   synchronize:
+  #     src: "{{ mergerfs_root }}/docker_data/data"
+  #     dest: "{{ docker_dir }}/"
+  #     delete: true
+  #     recurse: yes
+  #   delegate_to: "{{ inventory_hostname }}"
+  #   when: persistent_data_find.matched < 20 or not persistent_data.stat.exists
+
+  - name: Chmod the data folder
+    become: yes
+    file:
+      dest: "{{ docker_dir }}"
+      state: directory
+      owner: "{{ username }}"
+      group: "{{ username }}"
+      recurse: yes
