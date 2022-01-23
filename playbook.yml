@@ -17,13 +17,13 @@
     - role: system/mounts
     ######--- /SYSTEM ---######
 
+    - role: applications/tailscale
 
     ######--- CONTAINERS ---######
     - role: docker
 
     - role: NPM
       tags:
-        - nextcloud
         - containers
 
     - role: applications/nextcloud
