@@ -1,11 +1,50 @@
 ---
-- name: Copy Nextcloud docker-compose file
-  copy:
-    src: ../files/docker-compose.yml
-    dest: /home/{{ username }}/docker-compose.yml
+- name: Create Nextcloud net
+  docker_network:
+    name: nextcloud-net
 
-- name: Deploy Nextcloud docker-compose stack
-  docker_compose:
-    project_src: /home/{{ username }}
-    files:
-    - docker-compose.yml
+- name: Make sure the MariaDB container is created and running
+  docker_container:
+    name: nextcloud-db
+    image: mariadb
+    pull: yes
+    networks:
+      - name: nextcloud-net
+    state: 'started'
+    env:
+      MYSQL_ROOT_PASSWORD: mytaciSm-interfeNestration-Inaniloquent
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+      MYSQL_PASSWORD: mytaciSm-interfeNestration-Inaniloquent
+    volumes:
+      - "{{ docker_dir }}/nextcloud/db:/var/lib/mysql"
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb-file-per-table=1 --skip-innodb-read-only-compressed
+    restart_policy: unless-stopped
+
+- name: Make sure the Redis container is created and running
+  docker_container:
+    name: nextcloud-redis
+    image: redis:alpine
+    networks:
+      - name: nextcloud-net
+    restart_policy: unless-stopped
+
+- name: Make sure the Nextcloud container is created and running
+  docker_container:
+    name: nextcloud-app
+    image: nextcloud
+    pull: yes
+    networks:
+      - name: nextcloud-net
+      - name: vagrant_npm-net
+    state: 'started'
+    env:
+      MYSQL_PASSWORD: mytaciSm-interfeNestration-Inaniloquent
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+      MYSQL_HOST: nextcloud-db
+      REDIS_HOST: nextcloud-redis
+    volumes:
+      - "{{ docker_dir }}/nextcloud/general:/var/www/html"
+      - "{{ mergerfs_root }}/nextcloud/data:/var/www/html/data"
+    restart_policy: unless-stopped
