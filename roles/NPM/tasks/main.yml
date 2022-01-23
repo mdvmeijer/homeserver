@@ -1,4 +1,8 @@
 ---
+- name: Create NPM net
+  docker_network:
+    name: npm-net
+
 - name: Copy NPM docker-compose file
   copy:
     src: ../files/docker-compose.yml
