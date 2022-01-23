@@ -4,5 +4,6 @@
     fstype: ext4
     dev: "{{ item.dev }}"
     opts: "-L {{ item.label }}"
-    with_items: "{{ disks }}"
+  with_items: "{{ disks }}"
+  when: disks[0] is defined
     # opts: -cc
