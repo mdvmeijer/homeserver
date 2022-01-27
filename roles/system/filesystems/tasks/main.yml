@@ -1,13 +1,9 @@
 ---
-- name: Create an ext4 filesystem on /dev/sdc and check disk blocks
+- name: Create an ext4 filesystem on each disk and check disk blocks
   community.general.filesystem:
     fstype: ext4
-    dev: /dev/sdc
-    opts: -L data1
+    dev: "{{ item.dev }}"
+    opts: "-L {{ item.label }}"
+  with_items: "{{ disks }}"
+  when: disks[0] is defined
     # opts: -cc
-
-- name: Create an ext4 filesystem on /dev/sdd and check disk blocks
-  community.general.filesystem:
-    fstype: ext4
-    dev: /dev/sdd
-    opts: -L data2
