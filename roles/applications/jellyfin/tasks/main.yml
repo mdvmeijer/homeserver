@@ -18,7 +18,7 @@
       - "/dev/dri/renderD128:/dev/dri/renderD128"
     state: 'started'
     env:
-      # "DOCKER_MODS": "linuxserver/mods:jellyfin-opencl-intel"
+      "DOCKER_MODS": "linuxserver/mods:jellyfin-opencl-intel"
       "PUID": "{{ guid }}"
       "PGID": "{{ guid }}"
       "TZ": "{{ timezone }}"
@@ -28,14 +28,14 @@
       - "{{ mergerfs_root }}/Media/TV:/data/tvshows"
       - "{{ mergerfs_root }}/Media/Movies:/data/movies"
       # - "{{ mergerfs_root }}_slow/Media/Transcodes:/config/data/transcodes"
-      # - "{{ mergerfs_root }}/Media/Metadata:/metadata"
+      - "{{ mergerfs_root }}/Media/Metadata:/metadata"
       # - "{{ mergerfs_root }}/Media/Cache:/data/Cache"
       # - "/etc/localtime:/etc/localtime:ro"
     restart_policy: unless-stopped
 
 - name: Add {{ container_name }} to the npm network (reverse-proxy)
   docker_network:
-    name: vagrant_npm-net
+    name: npm-net
     connected:
       - "{{ container_name }}"
     appends: yes
