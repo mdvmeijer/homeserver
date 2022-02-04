@@ -2,6 +2,8 @@ timezone: Europe/Amsterdam
 
 username: vagrant
 
+guid: "1000"
+
 mergerfs_root: /mnt/storage
 
 docker_dir: /home/{{ username }}/docker/data

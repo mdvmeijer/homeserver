@@ -30,4 +30,9 @@
       tags:
         - nextcloud
         - containers
+
+    - role: applications/jellyfin
+      tags:
+        - jellyfin
+        - containers
     ######--- /CONTAINERS ---######
