@@ -1,11 +1,11 @@
 ---
 # probably not necessary on 21.10
-- name: Unmount the core* snaps
+- name: Ensure the core* snaps aren't mounted
   mount:
     name: "/snap/core*"
     state: unmounted
 
-- name: Remove the pre-installed snaps
+- name: Ensure the pre-installed snaps are removed
   snap:
     name: "{{ item }}"
     state: absent
@@ -15,13 +15,13 @@
     - snapd
   ignore_errors: yes
 
-- name: Remove the snap package from apt
+- name: Ensure the snap package is not present
   apt:
     package: snapd
     state: absent
     purge: yes
 
-- name: Remove the snap folders
+- name: Ensure the snap folders are removed
   file:
     name: "{{ item }}"
     state: absent

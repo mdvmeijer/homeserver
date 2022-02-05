@@ -1,5 +1,5 @@
 ---
-- name: Create NPM net
+- name: Ensure npm-net exists
   docker_network:
     name: npm-net
 

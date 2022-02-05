@@ -1,13 +1,13 @@
 ---
-- name: Add tailscale's package signing key
+- name: Ensure Tailscale's package signing key is imported
   apt_key:
     url: https://pkgs.tailscale.com/stable/ubuntu/impish.gpg
     state: present
 
-- name: Add tailscale's repository
+- name: Add Tailscale's repository
   shell: curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/impish.list | sudo tee /etc/apt/sources.list.d/tailscale.list
 
-- name: Update apt and install tailscale
+- name: Make sure Tailscale is installed
   apt:
     update_cache: yes
     name: tailscale

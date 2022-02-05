@@ -1,5 +1,5 @@
 ---
-- name: Create Nextcloud net
+- name: Ensure nextcloud-net exists
   docker_network:
     name: nextcloud-net
 

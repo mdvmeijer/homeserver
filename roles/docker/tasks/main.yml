@@ -27,7 +27,7 @@
     name: docker
     state: present
 
-- name: Add user "{{ username }}" to group docker
+- name: Make sure user "{{ username }}" is a member of group docker
   user:
     name: "{{ username }}"
     groups:

@@ -13,6 +13,8 @@
     name: "{{ container_name }}"
     image: "ghcr.io/linuxserver/jellyfin"
     pull: yes
+    networks:
+      - name: npm-net
     privileged: yes
     devices:
       - "/dev/dri/renderD128:/dev/dri/renderD128"
@@ -32,11 +34,3 @@
       # - "{{ mergerfs_root }}/Media/Cache:/data/Cache"
       # - "/etc/localtime:/etc/localtime:ro"
     restart_policy: unless-stopped
-
-- name: Add {{ container_name }} to the npm network (reverse-proxy)
-  docker_network:
-    name: npm-net
-    connected:
-      - "{{ container_name }}"
-    appends: yes
-  # when: enable_swag

@@ -1,6 +1,6 @@
 ---
-- name: Install required system packages
+- name: Make sure mergerfs is installed
   apt:
+    update_cache: yes
     name: "mergerfs"
     state: latest
-    update_cache: yes

@@ -1,5 +1,5 @@
 ---
-- name: Mount the data drives
+- name: Ensure data drives are mounted
   mount:
     name: "{{ item.path }}"
     src: "{{ item.src }}"
@@ -9,7 +9,7 @@
   with_items: "{{ disks }}"
   when: disks[0] is defined
 
-- name: Mount the mergerfs array
+- name: Ensure mergerfs array is mounted
   mount:
     name: "{{ mergerfs_root }}"
     src: /mnt/data*

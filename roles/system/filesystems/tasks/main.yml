@@ -1,5 +1,5 @@
 ---
-- name: Create an ext4 filesystem on each disk and check disk blocks
+- name: Ensure an ext4 filesystem is present on each disk
   community.general.filesystem:
     fstype: ext4
     dev: "{{ item.dev }}"
