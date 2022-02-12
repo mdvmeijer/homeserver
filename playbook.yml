@@ -17,12 +17,12 @@
     - role: system/mounts
     ######--- /SYSTEM ---######
 
-    - role: applications/tailscale
+    - role: network/tailscale
 
-    ######--- CONTAINERS ---######
     - role: docker
 
-    - role: NPM
+    ######--- CONTAINERS ---######
+    - role: network/NPM
       tags:
         - containers
 
