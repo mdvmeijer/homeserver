@@ -26,12 +26,12 @@
       tags:
         - containers
 
-    - role: applications/nextcloud
+    - role: containers/nextcloud
       tags:
         - nextcloud
         - containers
 
-    - role: applications/jellyfin
+    - role: containers/jellyfin
       tags:
         - jellyfin
         - containers
