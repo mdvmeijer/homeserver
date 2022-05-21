@@ -35,4 +35,8 @@
       tags:
         - jellyfin
         - containers
+
+    - role: containers/watchtower
+      tags:
+        - containers
     ######--- /CONTAINERS ---######
