@@ -31,8 +31,7 @@
       - "{{ mergerfs_root }}/Media/Movies:/data/movies"
       # TODO: convert to slow pool when ready
       - "{{ mergerfs_root }}/Media/Transcodes:/config/data/transcodes"
-      - "{{ mergerfs_root }}/Media/Metadata:/metadata"
-      # TODO: test this one
-      - "{{ mergerfs_root }}/Media/Cache:/data/Cache"
+      - "{{ mergerfs_root }}/Media/Metadata:/config/data/metadata"
+      - "{{ mergerfs_root }}/Media/Cache:/config/cache"
       # - "/etc/localtime:/etc/localtime:ro"
     restart_policy: unless-stopped
