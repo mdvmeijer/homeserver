@@ -39,4 +39,8 @@
     - role: containers/watchtower
       tags:
         - containers
+
+    - role: containers/deluge
+      tags:
+        - containers
     ######--- /CONTAINERS ---######
