@@ -43,4 +43,8 @@
     - role: containers/deluge
       tags:
         - containers
+
+    - role: containers/sonarr
+      tags:
+        - containers
     ######--- /CONTAINERS ---######
