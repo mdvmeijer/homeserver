@@ -44,6 +44,9 @@
       MYSQL_USER: nextcloud
       MYSQL_HOST: nextcloud-db
       REDIS_HOST: nextcloud-redis
+      PUID: "{{ guid }}"
+      PGID: "{{ guid }}"
+      TZ: "{{ timezone }}"
     volumes:
       - "{{ docker_dir }}/nextcloud/general:/var/www/html"
       - "{{ mergerfs_root }}/nextcloud/data:/var/www/html/data"
